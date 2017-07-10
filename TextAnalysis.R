@@ -14,16 +14,17 @@ pacman::p_load(pacman, tm, SnowballC, dplyr, wordcloud, RColorBrewer)
 # Import the files
 
 # The debate as a csv
-debateCSV <- read.csv('/Users/matt/Desktop/hsrw/system_simulation/final/debate3.csv')
+debateCSV <- read.csv('/Users/matt/Desktop/hsrw/system_simulation/final/debate.csv')
 
 # Split the csv into subsets of speakers 
 debateClinton <- subset(debateCSV, debateCSV[,1]=="Clinton", select="Text")
 debateTrump <- subset(debateCSV, debateCSV[,1]=="Trump", select="Text")
 
-#
-#write.csv(debateClinton[1:50, ], "/Users/matt/Desktop/hsrw/system_simulation/final/debateClinton.csv")
-#write.csv(debateTrump[1:53, ], "/Users/matt/Desktop/hsrw/system_simulation/final/debateTrump.csv")
+# output new csv
+write.csv(debateClinton[1:50, ], "/Users/matt/Desktop/hsrw/system_simulation/final/debateClinton.csv")
+write.csv(debateTrump[1:53, ], "/Users/matt/Desktop/hsrw/system_simulation/final/debateTrump.csv")
 
+# write lines 
 linesC <- readLines('/Users/matt/Desktop/hsrw/system_simulation/final/debateClinton.csv')
 linesT <- readLines('/Users/matt/Desktop/hsrw/system_simulation/final/debateTrump.csv')
 
@@ -80,12 +81,15 @@ wordcloud(names(word.freqT),word.freqT,min.freq=4,colors=brewer.pal(3,"Dark2"))
 # Remove function words as well as some interjections such as well or also
 
 # Words chosen to be removed:
-# going ,almost, much, well, you’re, thats, can’t, will, just, like, ever, can, lets, dont, also, really, 
-# I’ve, actually, want, weve, said, lester
+# see, like, know, said, lester (name of the presenter), things, think, well, say, almost, clinton, ever, now, 
+# much, don’t, just, want, can’t, you’re, thing, that’s, look, will, they’re, going, first, we’ve, i’ve, let’s,
+# ever, back, also, actually, don’t, said, just, make, really, want, see, look, donald, get, that’s, will, can, 
+# going, think, well
 
 # create vector with word positions
-vC <- c(6,8,11,12,16,18,22,23,24,28,33,34,35,37,38,44,45,48,49,51) # 20 
-vT <- c(1,2,5,6,7,8,9,11,12,15,17,19,20,21,22,24,25,26,29,32,34,35) # 22
+vC <- c(1,6,8,11,12,16,19,22,23,24,28,30,33,34,35,37,38,42,44,45,49,50,52,53) # 20 
+
+vT <- c(1,2,5,6,7,8,9,11,12,14,15,16,17,19,20,21,22,24,25,26,29,32,34,35) # 22
 
 word.freqC2 <- word.freqC
 word.freqT2 <- word.freqT
